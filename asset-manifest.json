@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/icon-vote/static/css/main.60e8533b.chunk.css",
-    "main.js": "/icon-vote/static/js/main.1690441a.chunk.js",
-    "main.js.map": "/icon-vote/static/js/main.1690441a.chunk.js.map",
+    "main.js": "/icon-vote/static/js/main.e9c80558.chunk.js",
+    "main.js.map": "/icon-vote/static/js/main.e9c80558.chunk.js.map",
     "runtime-main.js": "/icon-vote/static/js/runtime-main.e998d948.js",
     "runtime-main.js.map": "/icon-vote/static/js/runtime-main.e998d948.js.map",
     "static/css/2.0e5962cc.chunk.css": "/icon-vote/static/css/2.0e5962cc.chunk.css",
     "static/js/2.c178264f.chunk.js": "/icon-vote/static/js/2.c178264f.chunk.js",
     "static/js/2.c178264f.chunk.js.map": "/icon-vote/static/js/2.c178264f.chunk.js.map",
     "index.html": "/icon-vote/index.html",
-    "precache-manifest.878316823ada4648f59d8b99d97c6494.js": "/icon-vote/precache-manifest.878316823ada4648f59d8b99d97c6494.js",
+    "precache-manifest.6a9125e0189ae26254d4bf0f33995647.js": "/icon-vote/precache-manifest.6a9125e0189ae26254d4bf0f33995647.js",
     "service-worker.js": "/icon-vote/service-worker.js",
     "static/css/2.0e5962cc.chunk.css.map": "/icon-vote/static/css/2.0e5962cc.chunk.css.map",
     "static/css/main.60e8533b.chunk.css.map": "/icon-vote/static/css/main.60e8533b.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.0e5962cc.chunk.css",
     "static/js/2.c178264f.chunk.js",
     "static/css/main.60e8533b.chunk.css",
-    "static/js/main.1690441a.chunk.js"
+    "static/js/main.e9c80558.chunk.js"
   ]
 }
