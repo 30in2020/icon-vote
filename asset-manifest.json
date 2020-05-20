@@ -1,19 +1,24 @@
 {
   "files": {
     "main.css": "/icon-vote/static/css/main.e19b37fe.chunk.css",
-    "main.js": "/icon-vote/static/js/main.9dafd2cb.chunk.js",
-    "main.js.map": "/icon-vote/static/js/main.9dafd2cb.chunk.js.map",
+    "main.js": "/icon-vote/static/js/main.5495726a.chunk.js",
+    "main.js.map": "/icon-vote/static/js/main.5495726a.chunk.js.map",
     "runtime-main.js": "/icon-vote/static/js/runtime-main.a666c9dd.js",
     "runtime-main.js.map": "/icon-vote/static/js/runtime-main.a666c9dd.js.map",
     "static/css/2.52ad41a7.chunk.css": "/icon-vote/static/css/2.52ad41a7.chunk.css",
-    "static/js/2.1509c2e0.chunk.js": "/icon-vote/static/js/2.1509c2e0.chunk.js",
-    "static/js/2.1509c2e0.chunk.js.map": "/icon-vote/static/js/2.1509c2e0.chunk.js.map",
+    "static/js/2.4c9f1a26.chunk.js": "/icon-vote/static/js/2.4c9f1a26.chunk.js",
+    "static/js/2.4c9f1a26.chunk.js.map": "/icon-vote/static/js/2.4c9f1a26.chunk.js.map",
     "index.html": "/icon-vote/index.html",
-    "precache-manifest.d8d78ea50208e4c66e723b58899cb819.js": "/icon-vote/precache-manifest.d8d78ea50208e4c66e723b58899cb819.js",
+    "precache-manifest.69cd8f0746b1d1261a72f548dd449ab7.js": "/icon-vote/precache-manifest.69cd8f0746b1d1261a72f548dd449ab7.js",
     "service-worker.js": "/icon-vote/service-worker.js",
     "static/css/2.52ad41a7.chunk.css.map": "/icon-vote/static/css/2.52ad41a7.chunk.css.map",
     "static/css/main.e19b37fe.chunk.css.map": "/icon-vote/static/css/main.e19b37fe.chunk.css.map",
-    "static/js/2.1509c2e0.chunk.js.LICENSE.txt": "/icon-vote/static/js/2.1509c2e0.chunk.js.LICENSE.txt",
+    "static/js/2.4c9f1a26.chunk.js.LICENSE.txt": "/icon-vote/static/js/2.4c9f1a26.chunk.js.LICENSE.txt",
+    "static/media/about_hero.png": "/icon-vote/static/media/about_hero.79263d78.png",
+    "static/media/about_icon.png": "/icon-vote/static/media/about_icon.2e3fda9c.png",
+    "static/media/about_image1.png": "/icon-vote/static/media/about_image1.3829a37a.png",
+    "static/media/about_image2.png": "/icon-vote/static/media/about_image2.4362d9c2.png",
+    "static/media/about_image3.png": "/icon-vote/static/media/about_image3.6cf66703.png",
     "static/media/logo-all@2x.png": "/icon-vote/static/media/logo-all@2x.b75a9311.png",
     "static/media/signin-bg@2x.png": "/icon-vote/static/media/signin-bg@2x.d3e7b320.png",
     "static/media/signup-bg@2x.png": "/icon-vote/static/media/signup-bg@2x.db6010bf.png",
@@ -22,8 +27,8 @@
   "entrypoints": [
     "static/js/runtime-main.a666c9dd.js",
     "static/css/2.52ad41a7.chunk.css",
-    "static/js/2.1509c2e0.chunk.js",
+    "static/js/2.4c9f1a26.chunk.js",
     "static/css/main.e19b37fe.chunk.css",
-    "static/js/main.9dafd2cb.chunk.js"
+    "static/js/main.5495726a.chunk.js"
   ]
 }
