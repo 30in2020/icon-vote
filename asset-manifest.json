@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/icon-vote/static/css/main.e19b37fe.chunk.css",
-    "main.js": "/icon-vote/static/js/main.5495726a.chunk.js",
-    "main.js.map": "/icon-vote/static/js/main.5495726a.chunk.js.map",
+    "main.css": "/icon-vote/static/css/main.a3635bf4.chunk.css",
+    "main.js": "/icon-vote/static/js/main.81445933.chunk.js",
+    "main.js.map": "/icon-vote/static/js/main.81445933.chunk.js.map",
     "runtime-main.js": "/icon-vote/static/js/runtime-main.a666c9dd.js",
     "runtime-main.js.map": "/icon-vote/static/js/runtime-main.a666c9dd.js.map",
     "static/css/2.52ad41a7.chunk.css": "/icon-vote/static/css/2.52ad41a7.chunk.css",
-    "static/js/2.4c9f1a26.chunk.js": "/icon-vote/static/js/2.4c9f1a26.chunk.js",
-    "static/js/2.4c9f1a26.chunk.js.map": "/icon-vote/static/js/2.4c9f1a26.chunk.js.map",
+    "static/js/2.838d7d54.chunk.js": "/icon-vote/static/js/2.838d7d54.chunk.js",
+    "static/js/2.838d7d54.chunk.js.map": "/icon-vote/static/js/2.838d7d54.chunk.js.map",
     "index.html": "/icon-vote/index.html",
-    "precache-manifest.69cd8f0746b1d1261a72f548dd449ab7.js": "/icon-vote/precache-manifest.69cd8f0746b1d1261a72f548dd449ab7.js",
+    "precache-manifest.8af59a5e703bd8a60415d31512ed72f9.js": "/icon-vote/precache-manifest.8af59a5e703bd8a60415d31512ed72f9.js",
     "service-worker.js": "/icon-vote/service-worker.js",
     "static/css/2.52ad41a7.chunk.css.map": "/icon-vote/static/css/2.52ad41a7.chunk.css.map",
-    "static/css/main.e19b37fe.chunk.css.map": "/icon-vote/static/css/main.e19b37fe.chunk.css.map",
-    "static/js/2.4c9f1a26.chunk.js.LICENSE.txt": "/icon-vote/static/js/2.4c9f1a26.chunk.js.LICENSE.txt",
+    "static/css/main.a3635bf4.chunk.css.map": "/icon-vote/static/css/main.a3635bf4.chunk.css.map",
+    "static/js/2.838d7d54.chunk.js.LICENSE.txt": "/icon-vote/static/js/2.838d7d54.chunk.js.LICENSE.txt",
     "static/media/about_hero.png": "/icon-vote/static/media/about_hero.79263d78.png",
     "static/media/about_icon.png": "/icon-vote/static/media/about_icon.2e3fda9c.png",
     "static/media/about_image1.png": "/icon-vote/static/media/about_image1.3829a37a.png",
@@ -27,8 +27,8 @@
   "entrypoints": [
     "static/js/runtime-main.a666c9dd.js",
     "static/css/2.52ad41a7.chunk.css",
-    "static/js/2.4c9f1a26.chunk.js",
-    "static/css/main.e19b37fe.chunk.css",
-    "static/js/main.5495726a.chunk.js"
+    "static/js/2.838d7d54.chunk.js",
+    "static/css/main.a3635bf4.chunk.css",
+    "static/js/main.81445933.chunk.js"
   ]
 }
