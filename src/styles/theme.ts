@@ -18,8 +18,11 @@ const theme = {
   bold: 700,
 
   // Layout
-  "breakpoint-md": "600px",
-  "breakpoint-lg": "1280px",
+  "breakpoint-xs": "@media (max-width: 600px)",
+  "breakpoint-sm-only": "@media (max-width: 1050px) and (min-width: 600px)",
+  "breakpoint-sm": "@media (max-width: 1050px)",
+  "breakpoint-md-only": "@media (max-width: 1200px) and (min-width: 1050px)",
+  "breakpoint-md": "@media (max-width: 1200px)",
   "container-width-lg": "1116px",
   gap: 28,
 };

@@ -7,6 +7,17 @@ interface Props {
   fontSize: number;
 }
 
+const Text: React.SFC<Props> = (props) => {
+  const classes = useStyles(props);
+  const { text } = props;
+
+  return (
+    <p className={classes.wrap}>
+      <span className={classes.text}>{text}</span>
+    </p>
+  );
+};
+
 const useStyles = createUseStyles((theme: ThemeType) => ({
   wrap: {
     backgroundColor: "green",
@@ -19,16 +30,5 @@ const useStyles = createUseStyles((theme: ThemeType) => ({
     verticalAlign: "top",
   },
 }));
-
-const Text: React.SFC<Props> = (props) => {
-  const classes = useStyles(props);
-  const { text } = props;
-
-  return (
-    <p className={classes.wrap}>
-      <span className={classes.text}>{text}</span>
-    </p>
-  );
-};
 
 export default Text;

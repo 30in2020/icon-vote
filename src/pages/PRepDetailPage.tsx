@@ -1,205 +1,66 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { createUseStyles } from "react-jss";
 import { ThemeType } from "../styles/theme";
 import {
   Title,
   Breadcrumb,
-  Button,
-  ButtonType,
-  ProposalCardList,
+  ProposalCardListContainer,
+  VoteCardList,
+  Loader,
 } from "../components";
-import { ProposalType } from "../types";
-
-const mockProposals = [
-  {
-    pRepName: "ICX Station",
-    pRepLink: "/proposals/icx-station",
-    proposalLink: "/proposal/icx-station/1",
-    title: "Which Dapp aggregator proposal do you support?",
-    options: [
-      {
-        name: "Dapp.com",
-        percent: 10,
-      },
-      {
-        name: "State of the DApps",
-        percent: 70,
-      },
-      {
-        name: "DApp.Review",
-        percent: 5,
-      },
-      {
-        name: "DAppRadar",
-        percent: 20,
-      },
-    ],
-    proposalType: ProposalType.REPRESENTATIVE,
-    endsAt: 123,
-  },
-  {
-    pRepName: "ICX Station",
-    pRepLink: "/proposals/icx-station",
-    proposalLink: "/proposal/icx-station/1",
-    title: "Which Dapp aggregator proposal do you support? Long Question",
-    options: [
-      {
-        name: "Dapp.com",
-        percent: 10,
-      },
-      {
-        name: "State of the DApps",
-        percent: 70,
-      },
-      {
-        name: "DApp.Review",
-        percent: 5,
-      },
-      {
-        name: "DAppRadar",
-        percent: 20,
-      },
-    ],
-    proposalType: ProposalType.REPRESENTATIVE,
-    endsAt: 123,
-  },
-  {
-    pRepName: "ICX Station",
-    pRepLink: "/proposals/icx-station",
-    proposalLink: "/proposal/icx-station/1",
-    title: "Which Dapp aggregator proposal do you support?",
-    options: [
-      {
-        name: "Dapp.com",
-        percent: 10,
-      },
-      {
-        name: "State of the DApps",
-        percent: 70,
-      },
-      {
-        name: "DApp.Review",
-        percent: 5,
-      },
-      {
-        name: "DAppRadar",
-        percent: 20,
-      },
-    ],
-    proposalType: ProposalType.REPRESENTATIVE,
-    endsAt: 123,
-  },
-  {
-    pRepName: "ICX Station",
-    pRepLink: "/proposals/icx-station",
-    proposalLink: "/proposal/icx-station/1",
-    title: "Which Dapp aggregator proposal do you support?",
-    options: [
-      {
-        name: "Dapp.com",
-        percent: 10,
-      },
-      {
-        name: "State of the DApps",
-        percent: 70,
-      },
-      {
-        name: "DApp.Review",
-        percent: 5,
-      },
-      {
-        name: "DAppRadar",
-        percent: 20,
-      },
-    ],
-    proposalType: ProposalType.REPRESENTATIVE,
-    endsAt: 123,
-  },
-  {
-    pRepName: "ICX Station",
-    pRepLink: "/proposals/icx-station",
-    proposalLink: "/proposal/icx-station/1",
-    title: "Which Dapp aggregator proposal do you support? Long Question",
-    options: [
-      {
-        name: "Dapp.com",
-        percent: 10,
-      },
-      {
-        name: "State of the DApps",
-        percent: 70,
-      },
-      {
-        name: "DApp.Review",
-        percent: 5,
-      },
-      {
-        name: "DAppRadar",
-        percent: 20,
-      },
-    ],
-    proposalType: ProposalType.REPRESENTATIVE,
-    endsAt: 123,
-  },
-  {
-    pRepName: "ICX Station",
-    pRepLink: "/proposals/icx-station",
-    proposalLink: "/proposal/icx-station/1",
-    title: "Which Dapp aggregator proposal do you support?",
-    options: [
-      {
-        name: "Dapp.com",
-        percent: 10,
-      },
-      {
-        name: "State of the DApps",
-        percent: 70,
-      },
-      {
-        name: "DApp.Review",
-        percent: 5,
-      },
-      {
-        name: "DAppRadar",
-        percent: 20,
-      },
-    ],
-    proposalType: ProposalType.REPRESENTATIVE,
-    endsAt: 123,
-  },
-];
-
-const useStyles = createUseStyles((theme: ThemeType) => ({
-  main: {
-    marginTop: 18,
-  },
-  main__title: {
-    display: "flex",
-    alignItems: "baseline",
-  },
-}));
+import SWR from "../apis/swr";
 
 const PRepDetailPage: React.SFC = () => {
   const classes = useStyles();
+  const { username } = useParams();
+  const { data } = SWR.useGetPRepById(username!);
+  const { data: votes } = SWR.useGetUserVotes(!!data ? data.address : "");
+
+  if (!data || !votes) {
+    return <Loader height={600} />;
+  }
+
+  const { name } = data;
+
   return (
-    <div>
-      <div className="container">
+    <div className="container">
+      <div>
         <Breadcrumb>
           <Link to="/">Home</Link>
-          <Link to="/proposals/icx-station">ICX Station</Link>
+          <Link to={`/proposals/${username}`}>{name}</Link>
         </Breadcrumb>
       </div>
       <div className={classes.main}>
         <div className={classes.main__title}>
-          <Title text="ICX Station" />
+          <Title text={name} />
         </div>
-        <div>
-          <ProposalCardList proposals={mockProposals} />
+        <div className={classes.proposals}>
+          <ProposalCardListContainer
+            pRepName={name}
+            username={username}
+            hasFilter={true}
+          />
+        </div>
+        <div className={classes.votes}>
+          <VoteCardList name={name} votes={votes} />
         </div>
       </div>
     </div>
   );
 };
+
+const useStyles = createUseStyles((theme: ThemeType) => ({
+  main: {
+    marginTop: 30,
+  },
+  main__title: {
+    display: "flex",
+    alignItems: "baseline",
+    marginBottom: 30,
+  },
+  proposals: {},
+  votes: {},
+}));
 
 export default PRepDetailPage;

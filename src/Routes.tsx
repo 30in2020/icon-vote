@@ -1,74 +1,96 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import {
-  BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
   RouteProps,
+  useLocation,
 } from "react-router-dom";
-import { Header, Footer } from "./components";
-import { MainPage, PRepDetailPage } from "./pages";
-import EditProposalPage from "./pages/EditProposalPage";
-import ProposalDetailPage from "./pages/ProposalDetailPage";
+import {
+  HeaderContainer,
+  Footer,
+  SignPageWrapper,
+  SignPageType,
+  Loader,
+} from "./components";
+import {
+  MainPage,
+  AboutPage,
+  PRepDetailPage,
+  EditProposalPageContainer,
+  LatestProposalPage,
+  ProfilePage,
+  ProposalDetailPageContainer,
+} from "./pages";
+import SWR from "./apis/swr";
+import { UserContext } from "./contexts/UserContext";
 
-function Routes() {
+const Routes: React.SFC = () => {
+  const { user } = useContext(UserContext);
+  const { data, revalidate } = SWR.useGetViewer();
+  const location = useLocation();
+  useEffect(() => {
+    revalidate();
+    window.scrollTo(0, 0);
+  }, [location, revalidate]);
+
+  if (!data) {
+    return <Loader height={"100vh"} />;
+  }
+
+  const isLoggedIn = !!user.username;
+
   return (
-    <Router>
-      <Header />
+    <>
+      <HeaderContainer />
       <div>
         <Switch>
-          <Route exact path="/">
-            <MainPage />
-          </Route>
-          <Route exact path="/proposals/:pRepId">
-            <PRepDetailPage />
-          </Route>
-          <PrivateRoute exact path="/proposal/:pRepId/edit">
-            <EditProposalPage />
+          <Route exact path="/" component={MainPage} />
+          <Route exact path="/about" component={AboutPage} />
+          <Route path="/latest-proposals" component={LatestProposalPage} />
+          <Route exact path="/proposals/:username" component={PRepDetailPage} />
+          <PrivateRoute exact path="/proposal/edit" isLoggedIn={isLoggedIn}>
+            <EditProposalPageContainer />
           </PrivateRoute>
-          <Route exact path="/proposal/:pRepId/:proposalId">
-            <ProposalDetailPage
-              options={[
-                {
-                  name: "Dapp.com",
-                  percent: 10,
-                },
-                {
-                  name: "State of the DApps",
-                  percent: 70,
-                },
-                {
-                  name: "DApp.Review",
-                  percent: 5,
-                },
-                {
-                  name: "DAppRadar",
-                  percent: 20,
-                },
-              ]}
-            />
+          <Route
+            exact
+            path="/proposal/:username/:proposalId"
+            component={ProposalDetailPageContainer}
+          />
+          <Route exact path="/signin">
+            <SignPageWrapper signPageType={SignPageType.SIGN_IN} />
           </Route>
+          <Route exact path="/signup">
+            <SignPageWrapper signPageType={SignPageType.SIGN_UP} />
+          </Route>
+          <PrivateRoute exact path="/verify" isLoggedIn={isLoggedIn}>
+            <SignPageWrapper signPageType={SignPageType.VERIFY} />
+          </PrivateRoute>
+          <PrivateRoute exact path="/profile" isLoggedIn={isLoggedIn}>
+            <ProfilePage />
+          </PrivateRoute>
         </Switch>
       </div>
       <Footer />
-    </Router>
+    </>
   );
-}
+};
 
 function PrivateRoute({
+  isLoggedIn,
   children,
   ...rest
-}: RouteProps & { children: React.ReactNode }) {
+}: RouteProps & { isLoggedIn: boolean; children: React.ReactNode }) {
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        true ? (
+        isLoggedIn ? (
           children
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: "/signin",
               state: { from: location },
             }}
           />

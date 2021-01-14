@@ -6,6 +6,13 @@ interface Props {
   text: string;
 }
 
+const Title: React.SFC<Props> = (props) => {
+  const classes = useStyles(props);
+  const { text } = props;
+
+  return <h2 className={classes.title}>{text}</h2>;
+};
+
 const useStyles = createUseStyles((theme: ThemeType) => ({
   title: {
     color: theme.secondary1,
@@ -13,14 +20,10 @@ const useStyles = createUseStyles((theme: ThemeType) => ({
     fontWeight: theme.bold,
     marginRight: 20,
     fontStretch: "condensed",
+    [theme["breakpoint-xs"]]: {
+      fontSize: "2.8rem",
+    },
   },
 }));
-
-const Title: React.SFC<Props> = (props) => {
-  const classes = useStyles(props);
-  const { text } = props;
-
-  return <h2 className={classes.title}>{text}</h2>;
-};
 
 export default Title;

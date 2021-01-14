@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
 import { createUseStyles } from "react-jss";
 import { ThemeType } from "../styles/theme";
@@ -9,12 +9,101 @@ import {
   ProposalMetaData,
   ProposalContent,
   Chart,
+  ChartData,
 } from "../components";
-import { ProposalType, ProposalOptionModel } from "../types";
+import {
+  PRep,
+  Proposal,
+  VotesOnProposalOptionWithTotalVotedPower,
+} from "../types";
 
 interface Props {
-  options: ProposalOptionModel[];
+  username: string;
+  pRep: PRep;
+  proposal: Proposal;
+  votedPowers: VotesOnProposalOptionWithTotalVotedPower;
+  chartData: ChartData;
+  selectedOption: number;
+  setOption: Dispatch<SetStateAction<number>>;
+  loading: boolean;
+  setVote: () => Promise<void>;
+  userAddress: string;
 }
+
+const ProposalDetailPage: React.SFC<Props> = ({
+  username,
+  pRep,
+  proposal,
+  chartData,
+  selectedOption,
+  setOption,
+  setVote,
+  loading,
+  userAddress,
+}) => {
+  const classes = useStyles();
+
+  const { name: pRepName } = pRep;
+
+  const {
+    title,
+    status,
+    winningThreshold,
+    pRepLink,
+    proposalLink,
+    proposalType,
+    contents,
+    endsAt,
+    options,
+  } = proposal;
+
+  return (
+    <div className="container">
+      <div>
+        <Breadcrumb>
+          <Link to="/">Home</Link>
+          <Link to={pRepLink}>{pRepName}</Link>
+          <Link to={proposalLink}>{title}</Link>
+        </Breadcrumb>
+      </div>
+      <div className={classes.proposal}>
+        <div className={classes.proposal__header}>
+          <Title text={title} />
+          <ProposalMetaData
+            status={status}
+            pRepName={username}
+            proposalType={proposalType}
+            endsAt={endsAt}
+            style={{
+              fontSize: "1.6rem",
+              paddingTop: 16,
+            }}
+          />
+        </div>
+        <div className={classes.proposal__dashboard}>
+          <div className={classes.proposal__vote}>
+            <ProposalVoteSection
+              status={status}
+              options={options}
+              selectedOption={selectedOption}
+              setOption={setOption}
+              minApprovalRate={winningThreshold}
+              setVote={setVote}
+              loading={loading}
+            />
+          </div>
+          <div className={classes.proposal__graph}>
+            <Chart chartData={chartData} />
+          </div>
+        </div>
+        <div className={classes.proposal__description}>
+          <Title text="Description" />
+          <ProposalContent content={contents} />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const useStyles = createUseStyles((theme: ThemeType) => ({
   proposal: {
@@ -23,81 +112,28 @@ const useStyles = createUseStyles((theme: ThemeType) => ({
   proposal__header: {},
   proposal__dashboard: {
     marginTop: 22,
+    marginBottom: 64,
     display: "flex",
+    flexWrap: "wrap",
   },
   proposal__vote: {
-    width: "67%",
+    width: "48%",
+    marginRight: "4%",
+    [theme["breakpoint-sm"]]: {
+      width: "100%",
+      marginRight: 0,
+      marginBottom: 40,
+    },
   },
   proposal__graph: {
-    width: "33%",
+    width: "48%",
+    [theme["breakpoint-sm"]]: {
+      width: "100%",
+    },
   },
   proposal__description: {
     marginTop: 44,
   },
 }));
-
-const ProposalDetailPage: React.SFC<Props> = (props) => {
-  const classes = useStyles();
-  const { options } = props;
-
-  return (
-    <div>
-      <div className="container">
-        <Breadcrumb>
-          <Link to="/">Home</Link>
-          <Link to="/proposals/icx-station">ICX Station</Link>
-          <Link to="/proposal/icx-station/1">
-            Which Dapp aggregator proposal do you support?
-          </Link>
-        </Breadcrumb>
-      </div>
-      <div className={classes.proposal}>
-        <div className={classes.proposal__header}>
-          <Title text="Which Dapp aggregator proposal do you support?" />
-          <ProposalMetaData
-            proposalType={ProposalType.COMMUNITY}
-            endsAt={1}
-            style={{
-              fontSize: "1.8rem",
-              paddingTop: 16,
-            }}
-          />
-        </div>
-        <div className={classes.proposal__dashboard}>
-          <div className={classes.proposal__vote}>
-            <ProposalVoteSection
-              options={[
-                {
-                  name: "Dapp.com",
-                  percent: 10,
-                },
-                {
-                  name: "State of the DApps",
-                  percent: 70,
-                },
-                {
-                  name: "DApp.Review",
-                  percent: 5,
-                },
-                {
-                  name: "DAppRadar",
-                  percent: 20,
-                },
-              ]}
-              minApprovalRate={50}
-            />
-          </div>
-          <div className={classes.proposal__graph}>
-            <Chart votedPct={45} voterCnt={12} requiredPct={50} />
-          </div>
-        </div>
-        <div className={classes.proposal__description}>
-          <Title text="Description" />
-          <ProposalContent content="" />
-        </div>
-      </div>
-    </div>
-  );
-};
 
 export default ProposalDetailPage;

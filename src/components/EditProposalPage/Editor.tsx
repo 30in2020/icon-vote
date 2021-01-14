@@ -1,34 +1,43 @@
-import React from "react";
+import React, { useRef } from "react";
 import "codemirror/lib/codemirror.css";
-import "@toast-ui/editor/dist/toastui-editor.css";
+import "../../styles/toastui-editor.css";
 
 import { Editor as ReactEditor } from "@toast-ui/react-editor";
 import { createUseStyles } from "react-jss";
 import { ThemeType } from "../../styles/theme";
 
-interface Props {}
+interface Props {
+  handleChange: (value: string) => void;
+}
+
+const Editor: React.SFC<Props> = (props) => {
+  const classes = useStyles(props);
+  const { handleChange } = props;
+  const editorRef = useRef<any>();
+  return (
+    <div className={classes.wrap}>
+      <ReactEditor
+        previewStyle="tab"
+        height="400px"
+        initialEditType="wysiwyg"
+        useCommandShortcut={true}
+        ref={editorRef}
+        events={{
+          change: (e) => {
+            if (editorRef.current) {
+              handleChange(editorRef.current.getInstance().getHtml());
+            }
+          },
+        }}
+      />
+    </div>
+  );
+};
 
 const useStyles = createUseStyles((theme: ThemeType) => ({
   wrap: {
     paddingTop: 30,
   },
 }));
-
-const Editor: React.SFC<Props> = (props) => {
-  const classes = useStyles(props);
-  const {} = props;
-
-  return (
-    <div className={classes.wrap}>
-      <ReactEditor
-        initialValue=""
-        previewStyle="tab"
-        height="345px"
-        initialEditType="wysiwyg"
-        useCommandShortcut={true}
-      />
-    </div>
-  );
-};
 
 export default Editor;

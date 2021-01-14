@@ -1,43 +1,28 @@
 import React from "react";
-import withStyles from "react-jss";
+import { createUseStyles } from "react-jss";
+import globalStyle from "./styles/global";
 import { ThemeType } from "./styles/theme";
+import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./Routes";
-import bg from "./assets/bg.png";
+import { ModalProvider } from "./contexts/ModalContext";
+import { UserProvider } from "./contexts/UserContext";
+import { AlertProvider } from "./contexts/AlertContext";
+//import bg from "./assets/bg.png";
 
-const globalStyle = (theme: ThemeType) => ({
-  "@global": {
-    html: {
-      fontSize: "62.5%",
-      fontFamily: theme.font,
-      letterSpacing: "-0.05rem",
-    },
-    body: {
-      fontSize: "1.6rem",
-      margin: 0,
-      "-webkit-font-smoothing": "antialiased",
-      "-moz-osx-font-smoothing": "grayscale",
-    },
-    ".container": {
-      width: theme["container-width-lg"],
-      margin: "0 auto",
-    },
-    a: {
-      color: "inherit",
-      "&:hover": {
-        color: theme.secondary2,
-      },
-    },
-  },
-});
+interface Props {}
 
-interface AppProps {
-  classes: object;
-}
+const useStyles = createUseStyles((theme: ThemeType) => ({
+  ...globalStyle(theme),
+}));
 
-function App({ classes }: AppProps) {
+const App: React.FC<Props> = (props) => {
+  useStyles();
   return (
     <>
-      {/*
+      <UserProvider>
+        <AlertProvider>
+          <ModalProvider>
+            {/*
       <div
         style={{
           opacity: 0.4,
@@ -51,11 +36,15 @@ function App({ classes }: AppProps) {
         <img src={bg} alt="" />
       </div>
  */}
-      <div className="container">
-        <Routes />
-      </div>
+
+            <Router>
+              <Routes />
+            </Router>
+          </ModalProvider>
+        </AlertProvider>
+      </UserProvider>
     </>
   );
-}
+};
 
-export default withStyles(globalStyle)(App);
+export default App;

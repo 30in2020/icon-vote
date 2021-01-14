@@ -1,6 +1,6 @@
 import React from "react";
 import { createUseStyles, useTheme } from "react-jss";
-import { Range, getTrackBackground } from "react-range";
+import { Range } from "react-range";
 import { ThemeType } from "../../styles/theme";
 import { SubTitle } from "../";
 
@@ -27,30 +27,6 @@ interface Props {
   setPct: (pct: number) => void;
 }
 
-const useStyles = createUseStyles((theme: ThemeType) => ({
-  wrap: {
-    width: "46%",
-    "&:first-of-type": {
-      marginRight: "8%",
-    },
-    marginBottom: 70,
-  },
-  range: {
-    position: "relative",
-    paddingTop: 50,
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    marginBottom: 34,
-  },
-  desc: {
-    color: theme.secondary1,
-    fontWeight: theme.semiBold,
-    fontSize: "1.8rem",
-  },
-}));
-
 const MIN = 0,
   MAX = 100;
 
@@ -61,7 +37,7 @@ const SliderSelector: React.SFC<Props> = (props) => {
 
   return (
     <div className={classes.wrap}>
-      <SubTitle text={sliderData[sliderType].title} textWidth={295} />
+      <SubTitle text={sliderData[sliderType].title} />
       <div className={classes.range}>
         <Range
           step={1}
@@ -123,5 +99,36 @@ const SliderSelector: React.SFC<Props> = (props) => {
     </div>
   );
 };
+
+const useStyles = createUseStyles((theme: ThemeType) => ({
+  wrap: {
+    width: "46%",
+    "&:first-of-type": {
+      marginRight: "8%",
+    },
+    marginBottom: 70,
+    [theme["breakpoint-sm"]]: {
+      width: "100%",
+      marginBottom: 50,
+    },
+  },
+  range: {
+    position: "relative",
+    paddingTop: 50,
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    flexWrap: "wrap",
+    marginBottom: 34,
+  },
+  desc: {
+    color: theme.secondary1,
+    fontWeight: theme.semiBold,
+    fontSize: "1.8rem",
+    [theme["breakpoint-xs"]]: {
+      fontSize: "1.4rem",
+    },
+  },
+}));
 
 export default SliderSelector;

@@ -1,11 +1,24 @@
 import React from "react";
 import { createUseStyles } from "react-jss";
 import { ThemeType } from "../../styles/theme";
-import forwardArrow2x from "../../assets/forward-arrow@2x.png";
+import ForwardArrow from "../../assets/forward-arrow@2x.png";
 
 interface Props {
   children: React.ReactNodeArray;
 }
+
+const Breadcrumb: React.SFC<Props> = (props) => {
+  const classes = useStyles(props);
+  const { children } = props;
+
+  return (
+    <div className={classes.wrap}>
+      {children.map((child: any, i: number) =>
+        React.cloneElement(child, { key: i, className: classes.link })
+      )}
+    </div>
+  );
+};
 
 const useStyles = createUseStyles((theme: ThemeType) => ({
   wrap: (props: Props) => ({}),
@@ -14,7 +27,7 @@ const useStyles = createUseStyles((theme: ThemeType) => ({
     fontWeight: theme.bold,
     color: theme.primary1,
     textDecoration: "none",
-    background: `url(${forwardArrow2x}) right 4px no-repeat`,
+    background: `url(${ForwardArrow}) right 5px no-repeat`,
     backgroundSize: "7px 13px",
     padding: {
       right: 25,
@@ -33,20 +46,13 @@ const useStyles = createUseStyles((theme: ThemeType) => ({
       },
     },
   }),
+  [theme["breakpoint-sm"]]: {
+    link: {
+      fontSize: "1.4rem!important",
+      backgroundSize: "5px 9.28px!important",
+    },
+  },
 }));
-
-const Breadcrumb: React.SFC<Props> = (props) => {
-  const classes = useStyles(props);
-  const { children } = props;
-
-  return (
-    <div className={classes.wrap}>
-      {children.map((child: any) =>
-        React.cloneElement(child, { className: classes.link })
-      )}
-    </div>
-  );
-};
 
 Breadcrumb.defaultProps = {};
 

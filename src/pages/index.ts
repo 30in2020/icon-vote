@@ -1,4 +1,9 @@
 export { default as MainPage } from "./MainPage";
+export { default as AboutPage } from "./AboutPage";
 export { default as PRepDetailPage } from "./PRepDetailPage";
 export { default as ProposalDetailPage } from "./ProposalDetailPage";
+export { default as ProposalDetailPageContainer } from "./ProposalDetailPageContainer";
+export { default as LatestProposalPage } from "./LatestProposalPage";
 export { default as EditProposalPage } from "./EditProposalPage";
+export { default as EditProposalPageContainer } from "./EditProposalPageContainer";
+export { default as ProfilePage } from "./ProfilePage";

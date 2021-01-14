@@ -1,67 +1,73 @@
 import React from "react";
 import { createUseStyles } from "react-jss";
-import { Link } from "react-router-dom";
 import { ThemeType } from "../../styles/theme";
-import search2x from "../../assets/search@2x.png";
-import { SubTitle } from "../";
+import SearchIcon from "../../assets/search@2x.png";
+import { SubTitle, PRepItemContainer } from "../";
+import { PRepListItem } from "../../types";
 
-const usePRepItemStyles = createUseStyles((theme: ThemeType) => ({
-  pRep: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    padding: `10px ${theme.gap}px`,
-    color: theme.secondary1,
-    borderRadius: 10,
-    "&:hover": {
-      background: theme.primary1,
-      color: theme.mono1,
-    },
-  },
-  "right-item": {
-    display: "flex",
-    fontWeight: theme.bold,
-    "& p": {
-      width: 124,
-      textAlign: "right",
-    },
-  },
-}));
-
-interface PRepItemProps {
-  name: string;
-  openCnt: number;
-  closeCnt: number;
-  link: string;
+interface Props {
+  data: {
+    [key: string]: PRepListItem[];
+  };
+  keyword: string;
+  setKeyword: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const PRepItem: React.SFC<PRepItemProps> = (props) => {
-  const classes = usePRepItemStyles(props);
-  const { link, openCnt, closeCnt, name } = props;
+const PRepList: React.SFC<Props> = (props) => {
+  let _i = 0;
+  const classes = useStyles(props);
+  const { data, keyword, setKeyword } = props;
+
+  const handleKeywordChange = React.useCallback(
+    (e) => {
+      setKeyword(e.target.value);
+    },
+    [setKeyword]
+  );
   return (
-    <Link to={link}>
-      <div className={classes.pRep}>
-        <p>{name}</p>
-        <div className={classes["right-item"]}>
-          <p>{openCnt}</p>
-          <p>{closeCnt}</p>
-        </div>
+    <div className={classes.wrap}>
+      <div className={classes.searchBar}>
+        <input
+          type="text"
+          placeholder="Search P-Reps"
+          value={keyword}
+          onChange={handleKeywordChange}
+        />
       </div>
-    </Link>
+      {Object.entries(data).map(([key, arr]) => {
+        _i++;
+        return (
+          <div key={key} className={classes.letterSection}>
+            {_i === 1 && (
+              <div className={classes.cntLabel}>
+                <p>Open</p>
+                <p>Close</p>
+              </div>
+            )}
+            <SubTitle text={key} />
+            {arr.map((item) => (
+              <PRepItemContainer
+                key={item.pRepName}
+                pRepName={item.pRepName}
+                username={item.username}
+              />
+            ))}
+          </div>
+        );
+      })}
+    </div>
   );
 };
 
-interface PRepListProps {}
-
-const usePRepListStyles = createUseStyles((theme: ThemeType) => ({
+const useStyles = createUseStyles((theme: ThemeType) => ({
   wrap: {
-    marginTop: 42,
+    marginTop: 35,
     marginBottom: 60,
   },
   searchBar: {
     width: "100%",
     backgroundColor: theme.secondary3,
-    background: `url(${search2x}) ${theme.gap}px center no-repeat`,
+    background: `url(${SearchIcon}) ${theme.gap}px center no-repeat`,
     backgroundSize: "18px 18px",
     fontFamily: theme.font,
     fontWeight: theme.bold,
@@ -93,47 +99,12 @@ const usePRepListStyles = createUseStyles((theme: ThemeType) => ({
     "& p": {
       width: 124,
       textAlign: "right",
+      [theme["breakpoint-xs"]]: {
+        width: 70,
+        fontSize: "1.8rem",
+      },
     },
   },
 }));
-
-const PRepList: React.SFC<PRepListProps> = (props) => {
-  const classes = usePRepListStyles(props);
-  return (
-    <div className={classes.wrap}>
-      <div className={classes.searchBar}>
-        <input type="text" placeholder="Search P-Reps" />
-      </div>
-      <div className={classes.letterSection}>
-        <div className={classes.cntLabel}>
-          <p>Open</p>
-          <p>Close</p>
-        </div>
-        <SubTitle text={"B"} />
-        <PRepItem name="Block42" openCnt={0} closeCnt={1} link={""} />
-        <PRepItem name="Blockmove" openCnt={2} closeCnt={1} link={""} />
-      </div>
-      <div className={classes.letterSection}>
-        <SubTitle text={"D"} />
-        <PRepItem
-          name="Deblock with STAYGE"
-          openCnt={0}
-          closeCnt={1}
-          link={""}
-        />
-        <PRepItem name="DNSC" openCnt={2} closeCnt={1} link={""} />
-      </div>
-      <div className={classes.letterSection}>
-        <SubTitle text={"I"} />
-        <PRepItem
-          name="ICX Station"
-          openCnt={1}
-          closeCnt={5}
-          link={"/proposals/icx-station"}
-        />
-      </div>
-    </div>
-  );
-};
 
 export default PRepList;
